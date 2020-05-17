@@ -34,7 +34,7 @@ controller.upload = async function (req, res) {
         form.parse(req, async (err, fields, files) => {
 
             const file = files.file
-            const destPath = path.join(`../../${Date.now()}.${extensionRegex.exec(files.file.name)[1]}`)
+            const destPath = path.join(`id_cards/${Date.now()}.${extensionRegex.exec(files.file.name)[1]}`)
 
             mv(file.path, destPath, async function (error) {
 
