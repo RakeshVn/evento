@@ -1,0 +1,25 @@
+<dl class="row justify-content-between">
+    <dt class="col-sm-6">Name</dt>
+    <dd class="col-sm-6">
+        <p style="margin-bottom: 0rem;">{{eventData.name}}</p>
+    </dd>
+    <dt class="col-sm-6">Email</dt>
+    <dd class="col-sm-6">
+        <p style="margin-bottom: 0rem;">{{eventData.email}}</p>
+    </dd>
+    <dt class="col-sm-6">Mobile</dt>
+    <dd class="col-sm-6">
+        <p style="margin-bottom: 0rem;">{{eventData.mobile}}</p>
+    </dd>
+    <dt class="col-sm-6">Registration type</dt>
+    <dd class="col-sm-6">
+        <p style="margin-bottom: 0rem;">{{eventData.type}}</p>
+    </dd>
+    <dt class="col-sm-6">Tickets</dt>
+    <dd class="col-sm-6">
+        <p style="margin-bottom: 0rem;">{{eventData.tickets}}</p>
+    </dd>
+</dl>
+<div class="id-card card shadow shadow-lg--hover mt-5">
+    <img class="id-card" [src]="eventData.idCard">
+</div>

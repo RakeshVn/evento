@@ -1,1 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: dillova;
+  src: url(assets/fonts/Dillova.ttf) format("truetype");
+}
