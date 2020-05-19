@@ -3,7 +3,24 @@ const formidable = require('formidable');
 const path = require('path');
 const mv = require('mv');
 
-const eventModel = require('../../models/event.model')
+const EventModel = require('../../models/event.model')
+
+controller.get = async function (req, res) {
+
+    try {
+
+        const { body } = req
+
+        const eventData = await EventModel.find({})
+
+        return res.status(200).send({ message: 'success', data: eventData })
+
+    } catch (error) {
+        console.error(error)
+        return res.status(500).send({ message: 'Internal Server Error' })
+    }
+
+}
 
 controller.create = async function (req, res) {
 
@@ -12,7 +29,7 @@ controller.create = async function (req, res) {
         const { body } = req
         const regNumber = Math.floor(100000 + Math.random() * 900000)
 
-        const eventData = await new eventModel({ ...body, regNumber }).save()
+        const eventData = await new EventModel({ ...body, regNumber }).save()
 
         return res.status(200).send({ message: 'success', data: eventData })
 
@@ -34,7 +51,8 @@ controller.upload = async function (req, res) {
         form.parse(req, async (err, fields, files) => {
 
             const file = files.file
-            const destPath = path.join(`id_cards/${Date.now()}.${extensionRegex.exec(files.file.name)[1]}`)
+            const fileName = `${Date.now()}.${extensionRegex.exec(files.file.name)[1]}`
+            const destPath = path.join('id_cards', fileName)
 
             mv(file.path, destPath, async function (error) {
 
@@ -42,7 +60,7 @@ controller.upload = async function (req, res) {
                     console.error(error)
                 }
 
-                await eventModel.findOneAndUpdate({ _id: params.id }, { $set: { idCard: destPath } })
+                await EventModel.findOneAndUpdate({ _id: params.id }, { $set: { idCard: fileName } })
 
                 return res.status(200).send({ message: 'success' })
 

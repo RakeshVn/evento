@@ -1,6 +1,8 @@
+const controller = module.exports
 const bcrypt = require('bcrypt');
 const Joi = require('joi');
-const User = require('../models/user.model');
+const UserModel = require('../../models/user.model');
+const AuthService = require('../../services/auth.service');
 
 const userSchema = Joi.object({
   fullname: Joi.string().required(),
@@ -11,13 +13,15 @@ const userSchema = Joi.object({
 })
 
 
-module.exports = {
-  insert
+controller.signin = async function (req, res) {
+  let user = req.user;
+  let token = AuthService.generateToken(user);
+  res.json({ user, token });
 }
 
-async function insert(user) {
+controller.signup = async function (user) {
   user = await Joi.validate(user, userSchema, { abortEarly: false });
   user.hashedPassword = bcrypt.hashSync(user.password, 10);
   delete user.password;
-  return await new User(user).save();
+  return await new UserModel(user).save();
 }

@@ -1,0 +1,16 @@
+.id-card {
+  border-radius: 0.5rem;
+  width: 3rem;
+  height: 2rem;
+}
+
+.id-card:hover {
+  border: 2px solid red;
+  cursor: pointer;
+}
+
+.idCard {
+  border-radius: 15px;
+  width: 400px;
+  height: 250px;
+}

@@ -12,6 +12,7 @@ import { CommonService } from './services/common.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ViewComponent } from './event/view/view.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomepageComponent,
     RegisterComponent,
     PreviewComponent,
-    NavbarComponent
+    NavbarComponent,
+    ViewComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,78 @@
+<section class="parent section-shaped section-lg" style="height: 100vh;">
+  <div class="shape shape-style-1 shape-default">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div _ngcontent-c6="" class="container mb-5">
+    <div class="card shadow">
+      <div class="card-header border-0">
+        <div class="row align-items-center">
+          <div class="col">
+            <h3 class="mb-0">Registered events</h3>
+          </div>
+          <div class="col text-right"><a class="btn btn-sm btn-primary" href="#!">See
+              all</a></div>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Event type</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Mobile</th>
+              <th scope="col">Tickets</th>
+              <th scope="col">Id card</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of eventsData">
+              <th scope="row"> {{item.type}} </th>
+              <td> {{item.name}} </td>
+              <td> {{item.email}} </td>
+              <td> {{item.mobile}} </td>
+              <td> {{item.tickets}} </td>
+              <td>
+                <img alt="Id card placeholder" class="id-card" [src]="'http://localhost:3000/'+item.idCard"
+                  (click)="open(image,'','','http://localhost:3000/'+item.idCard);">
+              </td>
+              <td>
+                <div ngbDropdown>
+                  <i class="fa fa-ellipsis-v" type="button" id="dropdownMenuButton" ngbDropdownToggle
+                    style="cursor: pointer;"></i>
+                  <div aria-labelledby="dropdownMenuButton" ngbDropdownMenu style="left: -185px;">
+                    <a class="dropdown-item" href="javascript:void(0)">Accept</a>
+                    <a class="dropdown-item" href="javascript:void(0)">Reject</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="col-md-4">
+  <ng-template #image let-c="close" let-d="dismiss">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+        <img class="idCard" [src]="viewImage">
+      </div>
+    </div>
+  </ng-template>
+</div>
