@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,14 +14,19 @@ export class RegisterComponent implements OnInit {
   eventForm: FormGroup
   preview: Boolean = false
   isSubmited: Boolean = false
-  @ViewChild('file', { static: false }) inputFile: ElementRef;
-  @ViewChild('classic2', { static: false }) classic2;
   closeResult: string;
+  registrationNumber: Number
+  modalReference: any;
+
+  @ViewChild('file', { static: false }) inputFile: ElementRef;
+  @ViewChild('previewModal', { static: false }) previewModal;
+  @ViewChild('registrationModal', { static: false }) registrationModal;
 
   constructor(
     private _FormBuilder: FormBuilder,
     private _CommonService: CommonService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private _Router: Router
   ) { }
 
   ngOnInit() {
@@ -61,7 +67,7 @@ export class RegisterComponent implements OnInit {
     if (this.eventForm.invalid) {
       return this.isSubmited = true
     }
-    return this.open(this.classic2, 'Notification', '')
+    return this.open(this.previewModal, 'Notification', '')
   }
 
   onSubmit() {
@@ -70,6 +76,9 @@ export class RegisterComponent implements OnInit {
     delete eventFormValue.idCard
 
     this._CommonService.post('event', eventFormValue).subscribe(response => {
+
+      this.registrationNumber = response['data']['regNumber']
+      this.open(this.registrationModal, 'Notification', '')
 
       let file = this.inputFile.nativeElement
       file = file.files[0]
@@ -93,24 +102,26 @@ export class RegisterComponent implements OnInit {
 
   open(content, type, modalDimension) {
     if (modalDimension === 'sm' && type === 'modal_mini') {
-      this.modalService.open(content, { windowClass: 'modal-mini', size: 'sm', centered: true }).result.then((result) => {
-        this.closeResult = 'Closed with: $result';
-      }, (reason) => {
-        this.closeResult = 'Dismissed $this.getDismissReason(reason)';
+      this.modalReference = this.modalService.open(content, { windowClass: 'modal-mini', size: 'sm', centered: true })
+      this.modalReference.result.then((result) => { }, (reason) => {
+
       });
     } else if (modalDimension === '' && type === 'Notification') {
-      this.modalService.open(content, { windowClass: 'modal-danger', centered: true }).result.then((result) => {
-        this.closeResult = 'Closed with: $result';
-      }, (reason) => {
-        this.closeResult = 'Dismissed $this.getDismissReason(reason)';
+      this.modalReference = this.modalService.open(content, { windowClass: 'modal-danger', centered: true })
+      this.modalReference.result.then((result) => { }, (reason) => {
+
       });
     } else {
-      this.modalService.open(content, { centered: true }).result.then((result) => {
-        this.closeResult = 'Closed with: $result';
-      }, (reason) => {
-        this.closeResult = 'Dismissed $this.getDismissReason(reason)';
+      this.modalReference = this.modalService.open(content, { centered: true })
+      this.modalReference.result.then((result) => { }, (reason) => {
+
       });
     }
+  }
+
+  close() {
+    this.modalReference.close()
+    this._Router.navigate(['/'])
   }
 
 }

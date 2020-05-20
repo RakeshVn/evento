@@ -104,10 +104,10 @@
 </main>
 
 <div class="col-md-4">
-    <ng-template #classic2 let-c="close" let-d="dismiss">
+    <ng-template #previewModal let-c="close" let-d="dismiss">
         <div class="modal-content bg-gradient-danger">
             <div class="modal-header">
-                <h6 class="modal-title" id="modal-title-notification">Your attention is required</h6>
+                <h6 class="modal-title" id="modal-title-notification">Preiview</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="d('Cross click')">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -117,9 +117,25 @@
                 </app-preview>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white" (click)="d('Cross click');onSubmit()">Ok, Got it</button>
+                <button type="button" class="btn btn-white" (click)="d('Cross click');onSubmit()">Submit</button>
                 <button type="button" class="btn btn-link text-white ml-auto" data-dismiss="modal"
                     (click)="c('Close click')">Close</button>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+<div class="col-md-4">
+    <ng-template #registrationModal let-c="close" let-d="dismiss">
+        <div class="modal-content bg-gradient-danger">
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-notification">Event Registered Success</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close(registrationModal)">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Here is your registration number <b>{{registrationNumber}}</b>
             </div>
         </div>
     </ng-template>

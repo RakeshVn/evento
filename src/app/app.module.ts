@@ -13,6 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ViewComponent } from './event/view/view.component';
+import { DashboardComponent } from './events/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ViewComponent } from './event/view/view.component';
     RegisterComponent,
     PreviewComponent,
     NavbarComponent,
-    ViewComponent
+    ViewComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

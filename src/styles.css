@@ -3,3 +3,11 @@
   font-family: dillova;
   src: url(assets/fonts/Dillova.ttf) format("truetype");
 }
+
+body {
+  background-color: #f4f5f7 !important;
+}
+
+.logo-font {
+  font-family: dillova;
+}

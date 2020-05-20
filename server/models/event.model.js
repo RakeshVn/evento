@@ -9,8 +9,9 @@ const schema = new mongoose.Schema({
     mobile: { type: String, required: true },
     type: { type: String, required: true },
     tickets: { type: Number, required: true },
-    regNumber: { type: Number, required: true },
+    regNumber: { type: String, required: true },
     idCard: { type: String },
+    accepted: { type: String, default: false },
     createdAt: { type: Date, default: Date.now }
 }, {
     versionKey: false

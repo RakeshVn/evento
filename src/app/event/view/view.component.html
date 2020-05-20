@@ -1,31 +1,13 @@
-<section class="parent section-shaped section-lg" style="height: 100vh;">
-  <div class="shape shape-style-1 shape-default">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-
-  <div _ngcontent-c6="" class="container mb-5">
+<app-navbar></app-navbar>
+<section class="bg-secondary" style="height: 100%;">
+  <div class="container py-lg-md">
     <div class="card shadow">
-      <div class="card-header border-0">
-        <div class="row align-items-center">
-          <div class="col">
-            <h3 class="mb-0">Registered events</h3>
-          </div>
-          <div class="col text-right"><a class="btn btn-sm btn-primary" href="#!">See
-              all</a></div>
-        </div>
-      </div>
       <div class="table-responsive">
         <table class="table align-items-center table-flush">
           <thead class="thead-light">
             <tr>
               <th scope="col">Event type</th>
+              <th scope="col">Reg. No.</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Mobile</th>
@@ -37,6 +19,7 @@
           <tbody>
             <tr *ngFor="let item of eventsData">
               <th scope="row"> {{item.type}} </th>
+              <td> {{item.regNumber}} </td>
               <td> {{item.name}} </td>
               <td> {{item.email}} </td>
               <td> {{item.mobile}} </td>
@@ -45,19 +28,49 @@
                 <img alt="Id card placeholder" class="id-card" [src]="'http://localhost:3000/'+item.idCard"
                   (click)="open(image,'','','http://localhost:3000/'+item.idCard);">
               </td>
-              <td>
-                <div ngbDropdown>
-                  <i class="fa fa-ellipsis-v" type="button" id="dropdownMenuButton" ngbDropdownToggle
-                    style="cursor: pointer;"></i>
-                  <div aria-labelledby="dropdownMenuButton" ngbDropdownMenu style="left: -185px;">
-                    <a class="dropdown-item" href="javascript:void(0)">Accept</a>
-                    <a class="dropdown-item" href="javascript:void(0)">Reject</a>
-                  </div>
-                </div>
+
+              <td *ngIf="item.accepted=='false' ;else elseAccept">
+                <button type="button" class="btn btn-success btn-sm" (click)="onRespond(item._id,true)">Accept</button>
+                <button type="button" class="btn btn-warning btn-sm" (click)="onRespond(item._id,false)">Reject</button>
               </td>
+              <ng-template #elseAccept>
+                <td *ngIf="item.accepted=='accepted'">
+                  <span class="badge badge-pill badge-success">ACCEPTED</span>
+                  <button *ngIf="item.accepted=='accepted'" type="button" class="btn btn-warning btn-sm"  style="margin-left: 10px;"
+                    (click)="onRespond(item._id,false)">Reject</button>
+                </td>
+                <td *ngIf="item.accepted=='rejected'">
+                  <span class="badge badge-pill badge-danger">REJECTED</span>
+                  <button *ngIf="item.accepted=='rejected'" type="button" class="btn btn-success btn-sm"  style="margin-left: 10px;"
+                    (click)="onRespond(item._id,true)">Accept</button>
+                </td>
+              </ng-template>
             </tr>
           </tbody>
         </table>
+        <div class="card-footer py-4">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)" (click)="onPageChange('prev')">
+                  <i class="fa fa-angle-left"></i>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item" [ngClass]="{'active' : page==i}" *ngFor="let i of totalPages">
+                <a class="page-link" href="javascript:void(0)" (click)="onPageChange(i)">
+                  {{i}}
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)" (click)="onPageChange('next')">
+                  <i class="fa fa-angle-right"></i>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
   </div>

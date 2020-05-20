@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
   public isCollapsed = true;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
+  isLoggedIn = false
 
   constructor(public location: Location, private router: Router) {
   }
@@ -33,26 +34,17 @@ export class NavbarComponent implements OnInit {
     this.location.subscribe((ev: PopStateEvent) => {
       this.lastPoppedUrl = ev.url;
     });
+
+    if (localStorage.getItem('token')) {
+      this.isLoggedIn = true
+    }
+
   }
 
-  isHome() {
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-
-    if (titlee === '#/home') {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-  isDocumentation() {
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-    if (titlee === '#/documentation') {
-      return true;
-    }
-    else {
-      return false;
-    }
+  onLogout() {
+    this.isLoggedIn = false
+    localStorage.clear()
+    this.router.navigate(['/'])
   }
 
 }

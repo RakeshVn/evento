@@ -20,4 +20,8 @@ export class CommonService {
     return this._HttpClient.get(`${this.api}${route}`, { params })
   }
 
+  put(route, params = {}, body = {}) {
+    return this._HttpClient.put(`${this.api}${route}`, body, { params })
+  }
+
 }
